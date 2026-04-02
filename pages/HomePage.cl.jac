@@ -135,9 +135,9 @@ def:pub page() -> JsxElement {
     def on_budget(e: any) -> None { budget = e.target.value; }
 
     featured_destinations = [
-        {"name": "Zermatt", "tag": "Matterhorn", "img": "https://images.unsplash.com/photo-1526481280695-3c687fd643ed?auto=format&fit=crop&w=1600&q=80"},
-        {"name": "Interlaken", "tag": "Lakes & peaks", "img": "https://images.unsplash.com/photo-1528127269322-539801943592?auto=format&fit=crop&w=1600&q=80"},
-        {"name": "Lucerne", "tag": "Old town & lake", "img": "https://images.unsplash.com/photo-1548013146-72479768bada?auto=format&fit=crop&w=1600&q=80"},
+        {"name": "Zermatt", "tag": "Matterhorn", "img": "https://images.unsplash.com/photo-1500043357865-c6b8827edf7a?auto=format&fit=crop&w=1600&q=80"},
+        {"name": "Interlaken", "tag": "Lakes & peaks", "img": "https://images.unsplash.com/photo-1501785888041-af3ef285b470?auto=format&fit=crop&w=1600&q=80"},
+        {"name": "Lucerne", "tag": "Old town & lake", "img": "https://images.unsplash.com/photo-1528909514045-2fa4ac7a08ba?auto=format&fit=crop&w=1600&q=80"},
         {"name": "St. Moritz", "tag": "Alpine luxury", "img": "https://images.unsplash.com/photo-1519681393784-d120267933ba?auto=format&fit=crop&w=1600&q=80"}
     ];
 
@@ -364,7 +364,7 @@ def:pub page() -> JsxElement {
                                 "badge": "24 experiences",
                                 "season": "Dec–Mar (Ski) / Jun–Sep (Hike)",
                                 "desc": "A car-free alpine village at the foot of the iconic Matterhorn, offering world-class skiing, hiking, and cozy chalets.",
-                                "img": "https://images.unsplash.com/photo-1521292270410-a8c4d716d518?auto=format&fit=crop&w=2400&q=80&crop=entropy"
+                                "img": "https://images.unsplash.com/photo-1521295121783-8a321d551ad2?auto=format&fit=crop&w=2400&q=80"
                             },
                             {
                                 "name": "Interlaken",
@@ -372,7 +372,7 @@ def:pub page() -> JsxElement {
                                 "badge": "32 experiences",
                                 "season": "Year-round",
                                 "desc": "Nestled between Lake Thun and Lake Brienz, Interlaken is the gateway to the Jungfrau region and unforgettable mountain views.",
-                                "img": "https://images.unsplash.com/photo-1528127269322-539801943592?auto=format&fit=crop&w=2400&q=80"
+                                "img": "https://images.unsplash.com/photo-1500375592092-40eb2168fd21?auto=format&fit=crop&w=2400&q=80"
                             },
                             {
                                 "name": "Lucerne",
@@ -380,7 +380,7 @@ def:pub page() -> JsxElement {
                                 "badge": "28 experiences",
                                 "season": "Apr–Oct",
                                 "desc": "A picturesque city on Lake Lucerne with a perfectly preserved medieval old town, iconic bridges, and lakeside promenades.",
-                                "img": "https://images.unsplash.com/photo-1548013146-72479768bada?auto=format&fit=crop&w=2400&q=80"
+                                "img": "https://images.unsplash.com/photo-1528127269322-539801943592?auto=format&fit=crop&w=2400&q=80"
                             },
                             {
                                 "name": "Zurich",
@@ -388,7 +388,7 @@ def:pub page() -> JsxElement {
                                 "badge": "22 experiences",
                                 "season": "Year-round",
                                 "desc": "Switzerland's largest city blends cosmopolitan culture, world-class dining, and lakefront living with easy access to alpine escapes.",
-                                "img": "https://images.unsplash.com/photo-1528909514045-2fa4ac7a08ba?auto=format&fit=crop&w=2400&q=80"
+                                "img": "https://images.unsplash.com/photo-1520967824495-b529aeba26df?auto=format&fit=crop&w=2400&q=80"
                             },
                             {
                                 "name": "Geneva",
@@ -404,7 +404,7 @@ def:pub page() -> JsxElement {
                                 "badge": "20 experiences",
                                 "season": "Jun–Sep / Dec–Mar",
                                 "desc": "A charming mountain village offering dramatic Eiger views, the First cliff walk, and access to iconic Jungfrau-region trails.",
-                                "img": "https://images.unsplash.com/photo-1501785888041-af3ef285b470?auto=format&fit=crop&w=2400&q=80"
+                                "img": "https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=2400&q=80&crop=entropy"
                             }
                         ]
                     ]}
