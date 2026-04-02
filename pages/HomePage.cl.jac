@@ -118,7 +118,7 @@ def:pub page() -> JsxElement {
     has destination: str = "";
     has exp_type: str = "";
     has dates: str = "";
-    has group_size: str = "2";
+    has group_size: str = "";
     has budget: str = "";
 
     navigate = useNavigate();
@@ -165,73 +165,143 @@ def:pub page() -> JsxElement {
 
     return (
         <div className="min-h-screen se-bg">
-            <section className="relative overflow-hidden">
+            <section className="relative min-h-[100svh] overflow-hidden">
                 <div
                     className="absolute inset-0"
                     style={{
-                        "backgroundImage": "linear-gradient(180deg, rgba(7,20,39,0.55), rgba(7,20,39,0.15) 55%, rgba(247,250,252,1)), url(" + hero_img + ")",
+                        "backgroundImage": "linear-gradient(180deg, rgba(7,20,39,0.78) 0%, rgba(7,20,39,0.55) 35%, rgba(7,20,39,0.25) 70%, rgba(7,20,39,0.15) 100%), url(" + hero_img + ")",
                         "backgroundSize": "cover",
                         "backgroundPosition": "center"
                     }}
                 />
-                <div className="relative max-w-6xl mx-auto px-4 pt-16 pb-14 md:pt-24 md:pb-20">
-                    <div className="se-fade-in">
-                        <div className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/10 px-4 py-2 text-xs text-white/90 backdrop-blur">
-                            <span className="h-1.5 w-1.5 rounded-full" style={{"backgroundColor": "var(--color-gold)"}} />
-                            <span className="tracking-[0.14em] uppercase">SwissEscape • Curated Switzerland</span>
+
+                <div className="relative max-w-6xl mx-auto px-4 pt-6">
+                    <nav className="flex items-center justify-between text-white/90">
+                        <Link to="/" className="inline-flex items-center gap-3">
+                            <div className="h-9 w-9 rounded-xl border border-white/20 bg-white/10 backdrop-blur flex items-center justify-center">
+                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style={{"color": "var(--color-gold)"}}>
+                                    <path d="M3 19L12 5l9 14H3Z" stroke="currentColor" strokeWidth="2" strokeLinejoin="round" />
+                                </svg>
+                            </div>
+                            <div className="text-xl" style={{"fontFamily": "var(--font-display)"}}>SwissEscape</div>
+                        </Link>
+
+                        <div className="hidden md:flex items-center gap-10 text-sm">
+                            <Link to="/destinations" className="hover:text-white transition-colors">Destinations</Link>
+                            <Link to="/experiences" className="hover:text-white transition-colors">Experiences</Link>
+                            <Link to="/stays" className="hover:text-white transition-colors">Stays</Link>
+                            <Link to="/itinerary" className="hover:text-white transition-colors">AI Planner</Link>
                         </div>
-                        <h1 className="mt-6 text-white leading-[1.02] tracking-[-0.02em] text-5xl md:text-7xl" style={{"fontFamily": "var(--font-display)"}}>
-                            Discover Switzerland,
-                            <span className="block text-white/90">booked like a film.</span>
+
+                        <div className="flex items-center gap-4">
+                            <Link to="/login" className="text-sm hover:text-white transition-colors">Sign In</Link>
+                            <Link
+                                to="/signup"
+                                className="h-10 px-5 inline-flex items-center justify-center rounded-full text-sm font-semibold shadow-soft"
+                                style={{"backgroundColor": "var(--color-gold)", "color": "rgba(7,20,39,0.95)"}}
+                            >
+                                Get Started
+                            </Link>
+                        </div>
+                    </nav>
+                </div>
+
+                <div className="relative max-w-6xl mx-auto px-4 pt-16 md:pt-24 pb-28 md:pb-36">
+                    <div className="text-center">
+                        <div className="text-xs uppercase tracking-[0.28em]" style={{"color": "var(--color-gold)"}}>
+                            PREMIUM SWISS TRAVEL MARKETPLACE
+                        </div>
+                        <h1 className="mt-6 text-white leading-[0.98] tracking-[-0.02em] text-5xl md:text-7xl lg:text-8xl" style={{"fontFamily": "var(--font-display)"}}>
+                            Discover the Magic of
+                            <span className="block" style={{"color": "var(--color-gold)"}}>Switzerland</span>
                         </h1>
-                        <p className="mt-5 max-w-2xl text-white/85 text-base md:text-lg leading-relaxed">
-                            Premium local experiences, scenic journeys, and luxury stays — curated by Swiss hosts and designed for effortless travel.
+                        <p className="mt-6 max-w-3xl mx-auto text-white/85 text-base md:text-lg leading-relaxed">
+                            Curated local experiences, scenic journeys, and luxury stays across the Swiss Alps — crafted by locals, loved by travelers.
                         </p>
                     </div>
 
-                    <div className="mt-10 se-glass rounded-[var(--radius-xl)] p-4 md:p-5 se-fade-in">
-                        <form onSubmit={on_submit} className="grid grid-cols-1 md:grid-cols-12 gap-3">
-                            <div className="md:col-span-3">
-                                <label className="block text-[11px] uppercase tracking-[0.14em] text-muted-foreground mb-2">Destination</label>
-                                <input value={destination} onChange={on_destination} placeholder="Zermatt, Lucerne, Interlaken..." className="w-full h-11 rounded-xl border border-border bg-white/60 text-foreground px-3 text-sm outline-none focus:ring-[3px] focus:ring-primary/10" />
-                            </div>
-                            <div className="md:col-span-3">
-                                <label className="block text-[11px] uppercase tracking-[0.14em] text-muted-foreground mb-2">Experience</label>
-                                <input value={exp_type} onChange={on_type} placeholder="Train, lake cruise, hiking..." className="w-full h-11 rounded-xl border border-border bg-white/60 text-foreground px-3 text-sm outline-none focus:ring-[3px] focus:ring-primary/10" />
-                            </div>
-                            <div className="md:col-span-2">
-                                <label className="block text-[11px] uppercase tracking-[0.14em] text-muted-foreground mb-2">Dates</label>
-                                <input value={dates} onChange={on_dates} placeholder="Jun 12–16" className="w-full h-11 rounded-xl border border-border bg-white/60 text-foreground px-3 text-sm outline-none focus:ring-[3px] focus:ring-primary/10" />
-                            </div>
-                            <div className="md:col-span-2">
-                                <label className="block text-[11px] uppercase tracking-[0.14em] text-muted-foreground mb-2">Group</label>
-                                <input value={group_size} onChange={on_group} placeholder="2" className="w-full h-11 rounded-xl border border-border bg-white/60 text-foreground px-3 text-sm outline-none focus:ring-[3px] focus:ring-primary/10" />
-                            </div>
-                            <div className="md:col-span-2">
-                                <label className="block text-[11px] uppercase tracking-[0.14em] text-muted-foreground mb-2">Budget</label>
-                                <input value={budget} onChange={on_budget} placeholder="CHF 500–1500" className="w-full h-11 rounded-xl border border-border bg-white/60 text-foreground px-3 text-sm outline-none focus:ring-[3px] focus:ring-primary/10" />
-                            </div>
-                            <div className="md:col-span-12 flex flex-col md:flex-row gap-3 md:items-center md:justify-between pt-1">
-                                <div className="text-xs text-muted-foreground">
-                                    Try: <span className="text-foreground/80">Glacier Express</span> or <span className="text-foreground/80">Lake cruise</span>
-                                </div>
-                                <button type="submit" className="h-11 px-5 rounded-xl bg-primary text-primary-foreground text-sm font-medium border border-primary hover:opacity-95 transition-opacity">
-                                    Search experiences
-                                </button>
-                            </div>
-                        </form>
-                    </div>
+                    <div className="mt-12 md:mt-14 relative">
+                        <div className="mx-auto max-w-5xl">
+                            <form
+                                onSubmit={on_submit}
+                                className="se-glass rounded-full shadow-card border border-white/15 bg-white/70 backdrop-blur px-4 py-3 md:px-6 md:py-4"
+                            >
+                                <div className="grid grid-cols-1 md:grid-cols-12 gap-3 md:gap-4 items-center">
+                                    <div className="md:col-span-3">
+                                        <div className="flex items-center gap-3 rounded-full bg-white/60 border border-border px-4 h-12">
+                                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style={{"color": "var(--color-gold)"}}>
+                                                <path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 1 1 18 0Z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                                                <path d="M12 10a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                                            </svg>
+                                            <input value={destination} onChange={on_destination} placeholder="Where to?" className="w-full bg-transparent text-sm outline-none placeholder:text-muted-foreground" />
+                                        </div>
+                                    </div>
 
-                    <div className="mt-10 flex flex-wrap gap-3 se-fade-in">
-                        <Link to="/itinerary" className="inline-flex items-center gap-2 rounded-full px-4 py-2 text-sm border border-white/20 bg-white/10 text-white/90 backdrop-blur hover:bg-white/15 transition-colors">
-                            Build AI itinerary
-                            <span className="text-[12px]" style={{"color": "var(--color-gold)"}}>•</span>
-                            <span className="text-white/80">Premium planning</span>
-                        </Link>
-                        <Link to="/host" className="inline-flex items-center gap-2 rounded-full px-4 py-2 text-sm border border-white/20 bg-white/10 text-white/90 backdrop-blur hover:bg-white/15 transition-colors">
-                            Become a local host
-                            <span className="text-white/70">Earn with your expertise</span>
-                        </Link>
+                                    <div className="md:col-span-3">
+                                        <div className="flex items-center gap-3 rounded-full bg-white/60 border border-border px-4 h-12">
+                                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style={{"color": "var(--color-gold)"}}>
+                                                <circle cx="11" cy="11" r="7" stroke="currentColor" strokeWidth="2" />
+                                                <path d="M20 20l-3.5-3.5" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
+                                            </svg>
+                                            <input value={exp_type} onChange={on_type} placeholder="Experience type" className="w-full bg-transparent text-sm outline-none placeholder:text-muted-foreground" />
+                                        </div>
+                                    </div>
+
+                                    <div className="md:col-span-3">
+                                        <div className="flex items-center gap-3 rounded-full bg-white/60 border border-border px-4 h-12">
+                                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style={{"color": "var(--color-gold)"}}>
+                                                <rect x="3" y="4" width="18" height="18" rx="2" stroke="currentColor" strokeWidth="2" />
+                                                <path d="M16 2v4M8 2v4M3 10h18" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
+                                            </svg>
+                                            <input value={dates} onChange={on_dates} placeholder="Travel dates" className="w-full bg-transparent text-sm outline-none placeholder:text-muted-foreground" />
+                                        </div>
+                                    </div>
+
+                                    <div className="md:col-span-2">
+                                        <div className="flex items-center gap-3 rounded-full bg-white/60 border border-border px-4 h-12">
+                                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style={{"color": "var(--color-gold)"}}>
+                                                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                                                <circle cx="12" cy="7" r="4" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                                            </svg>
+                                            <input value={group_size} onChange={on_group} placeholder="Guests" className="w-full bg-transparent text-sm outline-none placeholder:text-muted-foreground" />
+                                        </div>
+                                    </div>
+
+                                    <div className="md:col-span-1 flex md:justify-end">
+                                        <button
+                                            type="submit"
+                                            className="h-12 w-full md:w-12 rounded-full inline-flex items-center justify-center font-semibold shadow-soft"
+                                            style={{"backgroundColor": "var(--color-gold)", "color": "rgba(7,20,39,0.95)"}}
+                                            aria-label="Explore"
+                                        >
+                                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                <circle cx="11" cy="11" r="7" stroke="currentColor" strokeWidth="2" />
+                                                <path d="M20 20l-3.5-3.5" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
+                                            </svg>
+                                        </button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+
+                        <div className="mt-10 md:mt-12 grid grid-cols-2 md:grid-cols-4 gap-8 text-center text-white/90">
+                            <div>
+                                <div className="text-2xl md:text-3xl font-semibold">200+</div>
+                                <div className="mt-1 text-xs uppercase tracking-[0.18em] text-white/70">Curated Experiences</div>
+                            </div>
+                            <div>
+                                <div className="text-2xl md:text-3xl font-semibold">50+</div>
+                                <div className="mt-1 text-xs uppercase tracking-[0.18em] text-white/70">Local Guides</div>
+                            </div>
+                            <div>
+                                <div className="text-2xl md:text-3xl font-semibold">10</div>
+                                <div className="mt-1 text-xs uppercase tracking-[0.18em] text-white/70">Swiss Destinations</div>
+                            </div>
+                            <div>
+                                <div className="text-2xl md:text-3xl font-semibold">4.8★</div>
+                                <div className="mt-1 text-xs uppercase tracking-[0.18em] text-white/70">Average Rating</div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </section>
@@ -254,9 +324,9 @@ def:pub page() -> JsxElement {
                     {[
                         <div key={d["name"]} className="group rounded-[var(--radius-xl)] bg-white/70 border border-border shadow-soft hover:shadow-card transition-[box-shadow,transform] duration-300 hover:-translate-y-1 overflow-hidden">
                             <Link to="/destinations" className="block">
-                                <div className="relative overflow-hidden rounded-[var(--radius-xl)] m-4">
+                                <div className="relative overflow-hidden rounded-[var(--radius-xl)]">
                                     <div className="h-64 bg-cover bg-center transition-transform duration-500 group-hover:scale-[1.06]" style={{"backgroundImage": "url(" + d["img"] + ")"}} />
-                                    <div className="absolute inset-0 bg-gradient-to-t from-black/55 via-black/10 to-black/0" />
+                                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/15 to-black/0" />
 
                                     <div className="absolute top-4 right-4">
                                         <div className="px-4 py-2 rounded-full text-xs font-semibold text-white shadow-soft" style={{"backgroundColor": "var(--color-gold)"}}>
@@ -271,7 +341,7 @@ def:pub page() -> JsxElement {
                                 </div>
                             </Link>
 
-                            <div className="px-6 pb-6">
+                            <div className="px-6 py-6">
                                 <div className="flex items-center gap-2 text-sm text-muted-foreground">
                                     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style={{"color": "var(--color-gold)"}}>
                                         <path d="M12 22s8-4 8-10V6l-8-4-8 4v6c0 6 8 10 8 10Z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
@@ -294,7 +364,7 @@ def:pub page() -> JsxElement {
                                 "badge": "24 experiences",
                                 "season": "Dec–Mar (Ski) / Jun–Sep (Hike)",
                                 "desc": "A car-free alpine village at the foot of the iconic Matterhorn, offering world-class skiing, hiking, and cozy chalets.",
-                                "img": "https://images.unsplash.com/photo-1526481280695-3c687fd643ed?auto=format&fit=crop&w=1600&q=80"
+                                "img": "https://images.unsplash.com/photo-1521292270410-a8c4d716d518?auto=format&fit=crop&w=2400&q=80&crop=entropy"
                             },
                             {
                                 "name": "Interlaken",
@@ -302,7 +372,7 @@ def:pub page() -> JsxElement {
                                 "badge": "32 experiences",
                                 "season": "Year-round",
                                 "desc": "Nestled between Lake Thun and Lake Brienz, Interlaken is the gateway to the Jungfrau region and unforgettable mountain views.",
-                                "img": "https://images.unsplash.com/photo-1528127269322-539801943592?auto=format&fit=crop&w=1600&q=80"
+                                "img": "https://images.unsplash.com/photo-1528127269322-539801943592?auto=format&fit=crop&w=2400&q=80"
                             },
                             {
                                 "name": "Lucerne",
@@ -310,7 +380,31 @@ def:pub page() -> JsxElement {
                                 "badge": "28 experiences",
                                 "season": "Apr–Oct",
                                 "desc": "A picturesque city on Lake Lucerne with a perfectly preserved medieval old town, iconic bridges, and lakeside promenades.",
-                                "img": "https://images.unsplash.com/photo-1548013146-72479768bada?auto=format&fit=crop&w=1600&q=80"
+                                "img": "https://images.unsplash.com/photo-1548013146-72479768bada?auto=format&fit=crop&w=2400&q=80"
+                            },
+                            {
+                                "name": "Zurich",
+                                "tagline": "Culture Meets Alpine Charm",
+                                "badge": "22 experiences",
+                                "season": "Year-round",
+                                "desc": "Switzerland's largest city blends cosmopolitan culture, world-class dining, and lakefront living with easy access to alpine escapes.",
+                                "img": "https://images.unsplash.com/photo-1528909514045-2fa4ac7a08ba?auto=format&fit=crop&w=2400&q=80"
+                            },
+                            {
+                                "name": "Geneva",
+                                "tagline": "The Swiss Riviera Gateway",
+                                "badge": "18 experiences",
+                                "season": "May–Oct",
+                                "desc": "An international city on Lake Geneva surrounded by vineyards, offering cultural richness, luxury lakeside promenades, and mountain views.",
+                                "img": "https://images.unsplash.com/photo-1506377247377-2a5b3b417ebb?auto=format&fit=crop&w=2400&q=80"
+                            },
+                            {
+                                "name": "Grindelwald",
+                                "tagline": "Village at the Foot of the Eiger",
+                                "badge": "20 experiences",
+                                "season": "Jun–Sep / Dec–Mar",
+                                "desc": "A charming mountain village offering dramatic Eiger views, the First cliff walk, and access to iconic Jungfrau-region trails.",
+                                "img": "https://images.unsplash.com/photo-1501785888041-af3ef285b470?auto=format&fit=crop&w=2400&q=80"
                             }
                         ]
                     ]}
@@ -318,31 +412,92 @@ def:pub page() -> JsxElement {
             </section>
 
             <section className="max-w-6xl mx-auto px-4 pb-12 md:pb-16">
-                <div className="flex items-end justify-between gap-6">
-                    <div>
-                        <h2 className="text-2xl md:text-3xl" style={{"fontFamily": "var(--font-display)"}}>Popular Swiss experiences</h2>
-                        <p className="mt-2 text-sm text-muted-foreground max-w-xl">Handpicked tours and journeys with premium hosts, verified reviews, and seamless booking.</p>
+                <div className="text-center">
+                    <div className="text-xs uppercase tracking-[0.28em]" style={{"color": "var(--color-gold)"}}>
+                        POPULAR EXPERIENCES
                     </div>
-                    <Link to="/experiences" className="hidden md:inline-flex items-center gap-2 text-sm font-medium text-primary hover:opacity-80 transition-opacity">
-                        Browse marketplace
-                        <span aria-hidden="true">→</span>
-                    </Link>
+                    <h2 className="mt-4 text-4xl md:text-5xl leading-[1.05]" style={{"fontFamily": "var(--font-display)"}}>
+                        Popular Experiences
+                    </h2>
+                    <p className="mt-4 text-sm md:text-base text-muted-foreground max-w-2xl mx-auto leading-relaxed">
+                        Handpicked journeys with premium hosts, verified reviews, and seamless booking.
+                    </p>
                 </div>
 
-                <div className="mt-7 grid grid-cols-1 md:grid-cols-2 gap-5">
+                <div className="mt-12 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-7">
                     {[
-                        <ExperienceCard
-                            key={x["title"]}
-                            title={x["title"]}
-                            loc={x["loc"]}
-                            dur={x["dur"]}
-                            price={x["price"]}
-                            rating={x["rating"]}
-                            reviews={x["reviews"]}
-                            img={x["img"]}
-                            cat={x["cat"]}
-                        />
-                        for x in popular
+                        <div key={x["title"]} className="group rounded-[var(--radius-xl)] bg-white/70 border border-border shadow-soft hover:shadow-card transition-[box-shadow,transform] duration-300 hover:-translate-y-1 overflow-hidden">
+                            <Link to="/experiences" className="block">
+                                <div className="relative overflow-hidden rounded-[var(--radius-xl)]">
+                                    <div className="h-56 bg-cover bg-center transition-transform duration-500 group-hover:scale-[1.06]" style={{"backgroundImage": "url(" + x["img"] + ")"}} />
+                                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/15 to-black/0" />
+                                    <div className="absolute top-4 right-4">
+                                        <div className="px-4 py-2 rounded-full text-xs font-semibold text-white shadow-soft" style={{"backgroundColor": "var(--color-gold)"}}>
+                                            <span>{x["price"]}</span>
+                                        </div>
+                                    </div>
+                                    <div className="absolute left-5 bottom-5">
+                                        <div className="text-white text-2xl leading-none" style={{"fontFamily": "var(--font-display)"}}><span>{x["title"]}</span></div>
+                                        <div className="mt-1 text-white/85 text-sm"><span>{x["loc"]}</span></div>
+                                    </div>
+                                </div>
+                            </Link>
+
+                            <div className="px-6 py-6">
+                                <div className="flex items-center justify-between gap-4 text-sm text-muted-foreground">
+                                    <div className="inline-flex items-center gap-2">
+                                        <span className="h-1.5 w-1.5 rounded-full" style={{"backgroundColor": "var(--color-gold)"}} />
+                                        <span>{x["rating"]}</span>
+                                    </div>
+                                    <div className="text-xs uppercase tracking-[0.16em]"><span>{x["dur"]}</span></div>
+                                </div>
+                                <p className="mt-3 text-sm text-muted-foreground leading-relaxed">
+                                    {x["desc"]}
+                                </p>
+                                <Link to="/experiences" className="mt-4 inline-flex items-center gap-2 text-sm font-medium" style={{"color": "var(--color-gold)"}}>
+                                    Explore
+                                    <span className="transition-transform duration-200 group-hover:translate-x-0.5">→</span>
+                                </Link>
+                            </div>
+                        </div>
+                        for x in [
+                            {
+                                "title": "Glacier Express Scenic Journey",
+                                "loc": "St. Moritz → Zermatt",
+                                "rating": "4.8 / 5",
+                                "price": "CHF 189",
+                                "dur": "1 day",
+                                "desc": "A cinematic ride through alpine passes, deep gorges, and postcard-perfect valleys — reserved seats included.",
+                                "img": "https://images.unsplash.com/photo-1519681393784-d120267933ba?auto=format&fit=crop&w=1600&q=80"
+                            },
+                            {
+                                "title": "Zermatt Matterhorn Guided Tour",
+                                "loc": "Zermatt",
+                                "rating": "4.9 / 5",
+                                "price": "CHF 290",
+                                "dur": "8h",
+                                "desc": "Meet the Matterhorn up close with a local guide — viewpoints, village stories, and the best photo stops.",
+                                "img": "https://images.unsplash.com/photo-1469474968028-56623f02e42e?auto=format&fit=crop&w=1600&q=80"
+                            },
+                            {
+                                "title": "Interlaken Adventure Pass",
+                                "loc": "Interlaken",
+                                "rating": "4.7 / 5",
+                                "price": "CHF 149",
+                                "dur": "Full day",
+                                "desc": "Bundle paragliding views, lake time, and mountain fun — flexible scheduling with premium partners.",
+                                "img": "https://images.unsplash.com/photo-1528127269322-539801943592?auto=format&fit=crop&w=1600&q=80"
+                            },
+                            {
+                                "title": "Lucerne Lake Cruise",
+                                "loc": "Lucerne",
+                                "rating": "4.7 / 5",
+                                "price": "CHF 79",
+                                "dur": "2.5h",
+                                "desc": "Glide across Lake Lucerne at golden hour — panoramic decks, calm coves, and iconic shoreline views.",
+                                "img": "https://images.unsplash.com/photo-1500375592092-40eb2168fd21?auto=format&fit=crop&w=1600&q=80"
+                            }
+                        ]
                     ]}
                 </div>
             </section>
