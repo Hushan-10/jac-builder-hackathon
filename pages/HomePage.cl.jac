@@ -236,22 +236,83 @@ def:pub page() -> JsxElement {
                 </div>
             </section>
 
-            <section className="max-w-6xl mx-auto px-4 py-12 md:py-16">
-                <div className="flex items-end justify-between gap-6">
-                    <div>
-                        <h2 className="text-2xl md:text-3xl" style={{"fontFamily": "var(--font-display)"}}>Featured destinations</h2>
-                        <p className="mt-2 text-sm text-muted-foreground max-w-xl">Iconic Swiss places — curated for cinematic views, effortless logistics, and premium stays.</p>
+            <section className="max-w-6xl mx-auto px-4 py-14 md:py-20">
+                <div className="text-center">
+                    <div className="text-xs uppercase tracking-[0.28em]" style={{"color": "var(--color-gold)"}}>
+                        EXPLORE SWITZERLAND
                     </div>
-                    <Link to="/destinations" className="hidden md:inline-flex items-center gap-2 text-sm font-medium text-primary hover:opacity-80 transition-opacity">
-                        Explore all
-                        <span aria-hidden="true">→</span>
-                    </Link>
+                    <h2 className="mt-4 text-4xl md:text-5xl leading-[1.05]" style={{"fontFamily": "var(--font-display)"}}>
+                        Featured Destinations
+                    </h2>
+                    <p className="mt-4 text-sm md:text-base text-muted-foreground max-w-2xl mx-auto leading-relaxed">
+                        From alpine peaks to lakeside towns, discover the most breathtaking places<br className="hidden md:block" />
+                        in Switzerland.
+                    </p>
                 </div>
 
-                <div className="mt-7 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+                <div className="mt-12 grid grid-cols-1 md:grid-cols-3 gap-7">
                     {[
-                        <DestCard key={d["name"]} name={d["name"]} tag={d["tag"]} img={d["img"]} to="/destinations" />
-                        for d in featured_destinations
+                        <div key={d["name"]} className="group rounded-[var(--radius-xl)] bg-white/70 border border-border shadow-soft hover:shadow-card transition-[box-shadow,transform] duration-300 hover:-translate-y-1 overflow-hidden">
+                            <Link to="/destinations" className="block">
+                                <div className="relative overflow-hidden rounded-[var(--radius-xl)] m-4">
+                                    <div className="h-64 bg-cover bg-center transition-transform duration-500 group-hover:scale-[1.06]" style={{"backgroundImage": "url(" + d["img"] + ")"}} />
+                                    <div className="absolute inset-0 bg-gradient-to-t from-black/55 via-black/10 to-black/0" />
+
+                                    <div className="absolute top-4 right-4">
+                                        <div className="px-4 py-2 rounded-full text-xs font-semibold text-white shadow-soft" style={{"backgroundColor": "var(--color-gold)"}}>
+                                            <span>{d["badge"]}</span>
+                                        </div>
+                                    </div>
+
+                                    <div className="absolute left-5 bottom-5">
+                                        <div className="text-white text-3xl leading-none" style={{"fontFamily": "var(--font-display)"}}><span>{d["name"]}</span></div>
+                                        <div className="mt-1 text-white/85 text-sm"><span>{d["tagline"]}</span></div>
+                                    </div>
+                                </div>
+                            </Link>
+
+                            <div className="px-6 pb-6">
+                                <div className="flex items-center gap-2 text-sm text-muted-foreground">
+                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style={{"color": "var(--color-gold)"}}>
+                                        <path d="M12 22s8-4 8-10V6l-8-4-8 4v6c0 6 8 10 8 10Z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                                    </svg>
+                                    <span>{d["season"]}</span>
+                                </div>
+                                <p className="mt-3 text-sm text-muted-foreground leading-relaxed">
+                                    {d["desc"]}
+                                </p>
+                                <Link to="/destinations" className="mt-4 inline-flex items-center gap-2 text-sm font-medium" style={{"color": "var(--color-gold)"}}>
+                                    Explore
+                                    <span className="transition-transform duration-200 group-hover:translate-x-0.5">→</span>
+                                </Link>
+                            </div>
+                        </div>
+                        for d in [
+                            {
+                                "name": "Zermatt",
+                                "tagline": "Home of the Matterhorn",
+                                "badge": "24 experiences",
+                                "season": "Dec–Mar (Ski) / Jun–Sep (Hike)",
+                                "desc": "A car-free alpine village at the foot of the iconic Matterhorn, offering world-class skiing, hiking, and cozy chalets.",
+                                "img": "https://images.unsplash.com/photo-1526481280695-3c687fd643ed?auto=format&fit=crop&w=1600&q=80"
+                            },
+                            {
+                                "name": "Interlaken",
+                                "tagline": "Adventure Capital of Switzerland",
+                                "badge": "32 experiences",
+                                "season": "Year-round",
+                                "desc": "Nestled between Lake Thun and Lake Brienz, Interlaken is the gateway to the Jungfrau region and unforgettable mountain views.",
+                                "img": "https://images.unsplash.com/photo-1528127269322-539801943592?auto=format&fit=crop&w=1600&q=80"
+                            },
+                            {
+                                "name": "Lucerne",
+                                "tagline": "The Heart of Switzerland",
+                                "badge": "28 experiences",
+                                "season": "Apr–Oct",
+                                "desc": "A picturesque city on Lake Lucerne with a perfectly preserved medieval old town, iconic bridges, and lakeside promenades.",
+                                "img": "https://images.unsplash.com/photo-1548013146-72479768bada?auto=format&fit=crop&w=1600&q=80"
+                            }
+                        ]
                     ]}
                 </div>
             </section>
