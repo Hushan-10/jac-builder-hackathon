@@ -106,30 +106,30 @@ def:pub page() -> JsxElement {
     }
 
     def on_query_keydown(e: any) -> None {
-        if (e and e.key) and (str(e.key).strip().lower() == "enter") {
+        if (e and e.key) and (str(e.key).strip().toLowerCase() == "enter") {
             apply_search(e);
         }
     }
 
-    q = str(appliedSearch or "").strip().lower();
+    q = str(appliedSearch or "").strip().toLowerCase();
     q_words = [w for w in q.split(" ") if w];
 
     def category_match(x: dict) -> bool {
         if selectedCategory == "All" { return True; }
         cats = x["categories"] or [];
         return any([
-            str(c).strip().lower() == str(selectedCategory).strip().lower()
+            str(c).strip().toLowerCase() == str(selectedCategory).strip().toLowerCase()
             for c in cats
         ]);
     }
 
     def search_match(x: dict) -> bool {
         if not q { return True; }
-        title = str(x["title"] or "").lower();
-        location = str(x["location"] or "").lower();
-        description = str(x["description"] or "").lower();
+        title = str(x["title"] or "").toLowerCase();
+        location = str(x["location"] or "").toLowerCase();
+        description = str(x["description"] or "").toLowerCase();
         cats = x["categories"] or [];
-        cats_text = " ".join([str(c) for c in cats]).lower();
+        cats_text = " ".join([str(c) for c in cats]).toLowerCase();
         hay = (title + " " + location + " " + description + " " + cats_text);
         return all([hay.includes(w) for w in q_words]);
     }
@@ -241,7 +241,7 @@ def:pub page() -> JsxElement {
                         <div className="hidden md:flex items-center gap-8 text-sm font-medium text-[#344054]">
                             <Link to="/destinations" className="hover:text-[#0B2A4A] transition-colors">Destinations</Link>
                             <Link to="/experiences" className="text-[#0B2A4A]">Experiences</Link>
-                            <Link to="/" className="hover:text-[#0B2A4A] transition-colors">Stays</Link>
+                            <Link to="/stays" className="hover:text-[#0B2A4A] transition-colors">Stays</Link>
                             <Link to="/dashboard" className="hover:text-[#0B2A4A] transition-colors">Dashboard</Link>
                         </div>
 
@@ -376,7 +376,7 @@ def:pub page() -> JsxElement {
                                 <Link to="/experiences" className="text-sm hover:text-white transition-colors" style={{"color": "rgba(255,255,255,0.78)"}}>
                                     Experiences
                                 </Link>
-                                <Link to="/" className="text-sm hover:text-white transition-colors" style={{"color": "rgba(255,255,255,0.78)"}}>
+                                <Link to="/stays" className="text-sm hover:text-white transition-colors" style={{"color": "rgba(255,255,255,0.78)"}}>
                                     Stays
                                 </Link>
                             </div>
