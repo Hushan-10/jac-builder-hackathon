@@ -46,13 +46,129 @@ def:pub page() -> JsxElement {
         }
     ];
 
+    completed_trips = [
+        {
+            "id": "SE-COMP001",
+            "title": "Lucerne Lake Cruise Experience",
+            "date": "2026-03-10",
+            "guests": "3 guests",
+            "image": "https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=1600&q=80"
+        },
+        {
+            "id": "SE-COMP002",
+            "title": "Swiss Chocolate & Culture Tour",
+            "date": "2026-02-18",
+            "guests": "2 guests",
+            "image": "https://images.unsplash.com/photo-1528909514045-2fa4ac7a08ba?auto=format&fit=crop&w=1600&q=80"
+        }
+    ];
+
+    wishlist = [
+        {
+            "id": "SE-WISH001",
+            "title": "Zermatt Matterhorn Guided Day Tour",
+            "location": "Zermatt",
+            "price": "CHF 189",
+            "image": "https://images.unsplash.com/photo-1519681393784-d120267933ba?auto=format&fit=crop&w=1600&q=80"
+        },
+        {
+            "id": "SE-WISH002",
+            "title": "Interlaken Adventure Pass",
+            "location": "Interlaken",
+            "price": "CHF 249",
+            "image": "https://images.unsplash.com/photo-1501785888041-af3ef285b470?auto=format&fit=crop&w=1600&q=80"
+        },
+        {
+            "id": "SE-WISH003",
+            "title": "Lucerne Lake Cruise Experience",
+            "location": "Lucerne",
+            "price": "CHF 89",
+            "image": "https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=1600&q=80"
+        },
+        {
+            "id": "SE-WISH004",
+            "title": "Glacier Express Scenic Journey",
+            "location": "Zermatt – St. Moritz",
+            "price": "CHF 329",
+            "image": "https://images.unsplash.com/photo-1521295121783-8a321d551ad2?auto=format&fit=crop&w=1600&q=80"
+        }
+    ];
+
+    messages = [
+        {
+            "id": "SE-MSG001",
+            "sender": "Anna M.",
+            "role": "Guide",
+            "topic": "Zermatt Matterhorn Guided Day Tour",
+            "preview": "Looking forward to hosting you next week...",
+            "time": "2h ago"
+        },
+        {
+            "id": "SE-MSG002",
+            "sender": "Alpine Chalet Team",
+            "role": "Host",
+            "topic": "Alpine Luxury Chalet",
+            "preview": "Your late check-in request has been confirmed.",
+            "time": "Yesterday"
+        },
+        {
+            "id": "SE-MSG003",
+            "sender": "Lucas R.",
+            "role": "Guide",
+            "topic": "Glacier Express Scenic Journey",
+            "preview": "Please arrive at the station 20 minutes early.",
+            "time": "2 days ago"
+        }
+    ];
+
+    reviews = [
+        {
+            "id": "SE-REV001",
+            "experience": "Glacier Express Scenic Journey",
+            "rating": 5,
+            "text": "Absolutely magical journey with stunning views and seamless organization.",
+            "date": "2026-03-15"
+        },
+        {
+            "id": "SE-REV002",
+            "experience": "Lucerne Lake Cruise Experience",
+            "rating": 4,
+            "text": "Beautiful scenery and relaxing atmosphere. Highly recommended.",
+            "date": "2026-03-11"
+        }
+    ];
+
+    has settings_name: str = "Hushan";
+    has settings_email: str = "alex@example.com";
+    has settings_phone: str = "+41 79 123 45 67";
+    has settings_style: str = "Luxury / Adventure";
+    has settings_newsletter: bool = True;
+
     def set_tab(k: str) -> None {
         activeTab = k;
     }
 
+    def click_upcoming() -> None { set_tab("Upcoming"); }
+    def click_completed() -> None { set_tab("Completed"); }
+    def click_wishlist() -> None { set_tab("Wishlist"); }
+    def click_messages() -> None { set_tab("Messages"); }
+    def click_reviews() -> None { set_tab("My Reviews"); }
+    def click_settings() -> None { set_tab("Settings"); }
+
+    def tab_onclick(k: str) -> object {
+        return (
+            click_upcoming if k == "Upcoming"
+            else click_completed if k == "Completed"
+            else click_wishlist if k == "Wishlist"
+            else click_messages if k == "Messages"
+            else click_reviews if k == "My Reviews"
+            else click_settings
+        );
+    }
+
     def tab_class(is_active: bool) -> str {
         return (
-            "h-11 px-5 rounded-full text-sm font-medium border inline-flex items-center gap-2 whitespace-nowrap transition-colors "
+            "h-10 px-4 rounded-full text-[13px] font-medium border inline-flex items-center gap-1.5 whitespace-nowrap transition-colors "
             + (
                 "bg-[#071427] text-white border-[#071427] shadow-soft"
                     if is_active
@@ -70,12 +186,13 @@ def:pub page() -> JsxElement {
     }
 
     def trip_card(t: dict) -> JsxElement {
+        img = str(t["image"] or "");
         return (
             <div className="bg-white/70 border border-border rounded-[var(--radius-xl)] shadow-soft overflow-hidden">
-                <div className="p-5 md:p-6">
-                    <div className="flex flex-col md:flex-row gap-5 md:gap-6">
-                        <div className="w-full md:w-[260px]">
-                            <div className="h-44 md:h-40 w-full rounded-2xl bg-cover bg-center" style={{"backgroundImage": "url(" + (t["image"] or "") + ")"}} />
+                <div className="p-4 md:p-5">
+                    <div className="flex flex-col md:flex-row gap-4 md:gap-5">
+                        <div className="w-full md:w-[240px]">
+                            <div className="h-40 md:h-36 w-full rounded-2xl bg-cover bg-center" style={{"backgroundImage": "url(" + img + ")"}} />
                         </div>
 
                         <div className="flex-1">
@@ -88,26 +205,26 @@ def:pub page() -> JsxElement {
                                 </div>
                             </div>
 
-                            <div className="mt-3 text-2xl md:text-3xl leading-tight" style={{"fontFamily": "var(--font-display)", "color": "rgba(7,20,39,0.92)"}}>
+                            <div className="mt-2.5 text-xl md:text-2xl leading-tight" style={{"fontFamily": "var(--font-display)", "color": "rgba(7,20,39,0.92)"}}>
                                 {t["title"]}
                             </div>
 
-                            <div className="mt-3 flex flex-wrap items-center gap-x-5 gap-y-2 text-sm" style={{"color": "rgba(7,20,39,0.62)"}}>
+                            <div className="mt-2.5 flex flex-wrap items-center gap-x-4 gap-y-1.5 text-[13px]" style={{"color": "rgba(7,20,39,0.62)"}}>
                                 <div className="inline-flex items-center gap-2">
-                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style={{"color": "rgba(7,20,39,0.55)"}}>
+                                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style={{"color": "rgba(7,20,39,0.55)"}}>
                                         <path d="M8 7V3m8 4V3M4 11h16M6 5h12a2 2 0 0 1 2 2v13a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2Z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
                                     </svg>
                                     <span>{t["date"]}</span>
                                 </div>
                                 <div className="inline-flex items-center gap-2">
-                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style={{"color": "rgba(7,20,39,0.55)"}}>
+                                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style={{"color": "rgba(7,20,39,0.55)"}}>
                                         <path d="M12 21s-7-4.4-7-11a7 7 0 1 1 14 0c0 6.6-7 11-7 11z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
                                         <circle cx="12" cy="10" r="2.5" stroke="currentColor" strokeWidth="2" />
                                     </svg>
                                     <span>{t["location"]}</span>
                                 </div>
                                 <div className="inline-flex items-center gap-2">
-                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style={{"color": "rgba(7,20,39,0.55)"}}>
+                                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style={{"color": "rgba(7,20,39,0.55)"}}>
                                         <path d="M12 6v6l4 2" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
                                         <circle cx="12" cy="12" r="9" stroke="currentColor" strokeWidth="2" />
                                     </svg>
@@ -115,17 +232,17 @@ def:pub page() -> JsxElement {
                                 </div>
                             </div>
 
-                            <div className="mt-5 flex flex-wrap items-center gap-3">
+                            <div className="mt-4 flex flex-wrap items-center gap-2.5">
                                 <button
                                     type="button"
-                                    className="h-11 px-5 rounded-full text-sm font-semibold shadow-soft border"
+                                    className="h-10 px-4 rounded-full text-[13px] font-semibold shadow-soft border"
                                     style={{"backgroundColor": "#071427", "borderColor": "#071427", "color": "white"}}
                                 >
                                     View Details
                                 </button>
                                 <button
                                     type="button"
-                                    className="h-11 px-5 rounded-full text-sm font-semibold shadow-soft border"
+                                    className="h-10 px-4 rounded-full text-[13px] font-semibold shadow-soft border"
                                     style={{"backgroundColor": "rgba(255,255,255,0.75)", "borderColor": "rgba(7,20,39,0.10)", "color": "rgba(7,20,39,0.85)"}}
                                 >
                                     Contact Guide
@@ -133,6 +250,204 @@ def:pub page() -> JsxElement {
                             </div>
                         </div>
                     </div>
+                </div>
+            </div>
+        );
+    }
+
+    def completed_card(t: dict) -> JsxElement {
+        img = str(t["image"] or "");
+        return (
+            <div className="bg-white/70 border border-border rounded-[var(--radius-xl)] shadow-soft overflow-hidden">
+                <div className="p-4 md:p-5">
+                    <div className="flex flex-col md:flex-row gap-4 md:gap-5">
+                        <div className="w-full md:w-[240px]">
+                            <div className="h-40 md:h-36 w-full rounded-2xl bg-cover bg-center" style={{"backgroundImage": "url(" + img + ")"}} />
+                        </div>
+
+                        <div className="flex-1">
+                            <div className="text-xl md:text-2xl leading-tight" style={{"fontFamily": "var(--font-display)", "color": "rgba(7,20,39,0.92)"}}>
+                                {t["title"]}
+                            </div>
+                            <div className="mt-2 text-[13px]" style={{"color": "rgba(7,20,39,0.62)"}}>
+                                {t["date"]} · {t["guests"]}
+                            </div>
+
+                            <div className="mt-4">
+                                <button
+                                    type="button"
+                                    className="h-10 px-4 rounded-full text-[13px] font-semibold shadow-soft border inline-flex items-center gap-2"
+                                    style={{"backgroundColor": "rgba(255,255,255,0.75)", "borderColor": "rgba(7,20,39,0.10)", "color": "rgba(7,20,39,0.88)"}}
+                                >
+                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style={{"color": "rgba(7,20,39,0.75)"}}>
+                                        <path d="M12 17.3l-6.2 3.3 1.2-7-5-4.9 7-1 3-6.4 3 6.4 7 1-5 4.9 1.2 7L12 17.3Z" stroke="currentColor" strokeWidth="2" strokeLinejoin="round" />
+                                    </svg>
+                                    Leave Review
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        );
+    }
+
+    def wishlist_card(w: dict) -> JsxElement {
+        img = str(w["image"] or "");
+        return (
+            <div className="bg-white/70 border border-border rounded-[var(--radius-xl)] shadow-soft overflow-hidden">
+                <div className="relative">
+                    <div className="h-44 w-full bg-cover bg-center" style={{"backgroundImage": "url(" + img + ")"}} />
+                    <div className="absolute top-3 right-3 h-9 w-9 rounded-full flex items-center justify-center shadow-soft" style={{"backgroundColor": "rgba(7,20,39,0.92)", "color": "white"}}>
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg" style={{"color": "rgba(242,184,75,0.95)"}}>
+                            <path d="M12 21s-7-4.4-7-11a4.5 4.5 0 0 1 8-2.8A4.5 4.5 0 0 1 19 10c0 6.6-7 11-7 11Z" />
+                        </svg>
+                    </div>
+                </div>
+                <div className="p-4">
+                    <div className="text-lg leading-tight" style={{"fontFamily": "var(--font-display)", "color": "rgba(7,20,39,0.92)"}}>
+                        {w["title"]}
+                    </div>
+                    <div className="mt-2 flex items-center justify-between text-[13px]" style={{"color": "rgba(7,20,39,0.62)"}}>
+                        <div className="inline-flex items-center gap-2">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style={{"color": "rgba(7,20,39,0.55)"}}>
+                                <path d="M12 21s-7-4.4-7-11a7 7 0 1 1 14 0c0 6.6-7 11-7 11z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                                <circle cx="12" cy="10" r="2.5" stroke="currentColor" strokeWidth="2" />
+                            </svg>
+                            <span>{w["location"]}</span>
+                        </div>
+                        <div className="text-sm font-semibold" style={{"color": "rgba(7,20,39,0.86)"}}>{w["price"]}</div>
+                    </div>
+                </div>
+            </div>
+        );
+    }
+
+    def message_card(m: dict) -> JsxElement {
+        return (
+            <div className="bg-white/70 border border-border rounded-[var(--radius-xl)] shadow-soft p-4 md:p-5">
+                <div className="flex items-start justify-between gap-4">
+                    <div>
+                        <div className="text-sm font-semibold" style={{"color": "rgba(7,20,39,0.92)"}}>
+                            {m["role"]}: {m["sender"]}
+                        </div>
+                        <div className="mt-1 text-[13px]" style={{"color": "rgba(7,20,39,0.62)"}}>
+                            {m["topic"]}
+                        </div>
+                    </div>
+                    <div className="text-xs" style={{"color": "rgba(7,20,39,0.55)"}}>{m["time"]}</div>
+                </div>
+                <div className="mt-3 text-[13px] leading-relaxed" style={{"color": "rgba(7,20,39,0.72)"}}>
+                    “{m["preview"]}”
+                </div>
+            </div>
+        );
+    }
+
+    def stars(rating: int) -> JsxElement {
+        return (
+            <div className="inline-flex items-center gap-1">
+                {[
+                    <svg key={"s" + str(i)} width="16" height="16" viewBox="0 0 24 24" fill={("rgba(242,184,75,0.95)" if i <= rating else "rgba(7,20,39,0.18)")} xmlns="http://www.w3.org/2000/svg">
+                        <path d="M12 17.3l-6.2 3.3 1.2-7-5-4.9 7-1 3-6.4 3 6.4 7 1-5 4.9 1.2 7L12 17.3Z" />
+                    </svg>
+                    for i in range(1, 6)
+                ]}
+            </div>
+        );
+    }
+
+    def review_card(r: dict) -> JsxElement {
+        rating = int(r["rating"] or 0);
+        return (
+            <div className="bg-white/70 border border-border rounded-[var(--radius-xl)] shadow-soft p-4 md:p-5">
+                <div className="flex items-center justify-between gap-4">
+                    {stars(rating)}
+                    <div className="text-xs" style={{"color": "rgba(7,20,39,0.55)"}}>{r["date"]}</div>
+                </div>
+                <div className="mt-3 text-lg leading-tight" style={{"fontFamily": "var(--font-display)", "color": "rgba(7,20,39,0.92)"}}>
+                    {r["experience"]}
+                </div>
+                <div className="mt-2 text-[13px] leading-relaxed" style={{"color": "rgba(7,20,39,0.72)"}}>
+                    “{r["text"]}”
+                </div>
+            </div>
+        );
+    }
+
+    def handle_settings_name(e: any) -> None { settings_name = e["target"]["value"]; }
+    def handle_settings_email(e: any) -> None { settings_email = e["target"]["value"]; }
+    def handle_settings_phone(e: any) -> None { settings_phone = e["target"]["value"]; }
+    def handle_settings_style(e: any) -> None { settings_style = e["target"]["value"]; }
+    def toggle_newsletter() -> None { settings_newsletter = not settings_newsletter; }
+    def save_settings() -> None { }
+
+    def settings_panel() -> JsxElement {
+        return (
+            <div className="bg-white/70 border border-border rounded-[var(--radius-xl)] shadow-soft p-5 md:p-6">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div>
+                        <div className="text-xs font-semibold tracking-[0.14em] uppercase" style={{"color": "rgba(7,20,39,0.55)"}}>Full Name</div>
+                        <input
+                            value={settings_name}
+                            onChange={handle_settings_name}
+                            className="mt-2 h-11 w-full rounded-2xl px-4 text-sm outline-none border"
+                            style={{"backgroundColor": "rgba(255,255,255,0.75)", "borderColor": "rgba(7,20,39,0.10)", "color": "rgba(7,20,39,0.9)"}}
+                        />
+                    </div>
+                    <div>
+                        <div className="text-xs font-semibold tracking-[0.14em] uppercase" style={{"color": "rgba(7,20,39,0.55)"}}>Email</div>
+                        <input
+                            value={settings_email}
+                            onChange={handle_settings_email}
+                            className="mt-2 h-11 w-full rounded-2xl px-4 text-sm outline-none border"
+                            style={{"backgroundColor": "rgba(255,255,255,0.75)", "borderColor": "rgba(7,20,39,0.10)", "color": "rgba(7,20,39,0.9)"}}
+                        />
+                    </div>
+                    <div>
+                        <div className="text-xs font-semibold tracking-[0.14em] uppercase" style={{"color": "rgba(7,20,39,0.55)"}}>Phone</div>
+                        <input
+                            value={settings_phone}
+                            onChange={handle_settings_phone}
+                            className="mt-2 h-11 w-full rounded-2xl px-4 text-sm outline-none border"
+                            style={{"backgroundColor": "rgba(255,255,255,0.75)", "borderColor": "rgba(7,20,39,0.10)", "color": "rgba(7,20,39,0.9)"}}
+                        />
+                    </div>
+                    <div>
+                        <div className="text-xs font-semibold tracking-[0.14em] uppercase" style={{"color": "rgba(7,20,39,0.55)"}}>Preferred Travel Style</div>
+                        <input
+                            value={settings_style}
+                            onChange={handle_settings_style}
+                            className="mt-2 h-11 w-full rounded-2xl px-4 text-sm outline-none border"
+                            style={{"backgroundColor": "rgba(255,255,255,0.75)", "borderColor": "rgba(7,20,39,0.10)", "color": "rgba(7,20,39,0.9)"}}
+                        />
+                    </div>
+                </div>
+
+                <div className="mt-5 flex items-center justify-between gap-4">
+                    <div>
+                        <div className="text-xs font-semibold tracking-[0.14em] uppercase" style={{"color": "rgba(7,20,39,0.55)"}}>Newsletter</div>
+                        <div className="mt-1 text-[13px]" style={{"color": "rgba(7,20,39,0.62)"}}>Get curated SwissEscape updates and offers.</div>
+                    </div>
+                    <button
+                        type="button"
+                        onClick={toggle_newsletter}
+                        className="h-10 px-4 rounded-full text-[13px] font-semibold shadow-soft border"
+                        style={{"backgroundColor": ("#071427" if settings_newsletter else "rgba(255,255,255,0.75)"), "borderColor": ("#071427" if settings_newsletter else "rgba(7,20,39,0.10)"), "color": ("white" if settings_newsletter else "rgba(7,20,39,0.85)")}}
+                    >
+                        {"Enabled" if settings_newsletter else "Disabled"}
+                    </button>
+                </div>
+
+                <div className="mt-6">
+                    <button
+                        type="button"
+                        onClick={save_settings}
+                        className="h-11 px-6 rounded-full text-sm font-semibold shadow-soft border"
+                        style={{"backgroundColor": "var(--color-gold)", "borderColor": "var(--color-gold)", "color": "rgba(7,20,39,0.95)"}}
+                    >
+                        Save Changes
+                    </button>
                 </div>
             </div>
         );
@@ -173,21 +488,21 @@ def:pub page() -> JsxElement {
                 </div>
             </div>
 
-            <header className="py-12 md:py-14" style={{"backgroundColor": "#0B2A4A"}}>
+            <header className="py-9 md:py-10" style={{"backgroundColor": "#0B2A4A"}}>
                 <div className="max-w-6xl mx-auto px-4">
-                    <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-8">
-                        <div className="flex items-center gap-6">
-                            <div className="h-16 w-16 rounded-full flex items-center justify-center" style={{"border": "2px solid rgba(242,184,75,0.55)", "backgroundColor": "rgba(255,255,255,0.06)"}}>
-                                <svg width="26" height="26" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style={{"color": "rgba(242,184,75,0.95)"}}>
+                    <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-6">
+                        <div className="flex items-center gap-4">
+                            <div className="h-12 w-12 rounded-full flex items-center justify-center" style={{"border": "2px solid rgba(242,184,75,0.55)", "backgroundColor": "rgba(255,255,255,0.06)"}}>
+                                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style={{"color": "rgba(242,184,75,0.95)"}}>
                                     <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
                                     <path d="M12 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8Z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
                                 </svg>
                             </div>
                             <div>
-                                <div className="text-4xl md:text-5xl text-white leading-[1.05]" style={{"fontFamily": "var(--font-display)"}}>
+                                <div className="text-3xl md:text-4xl text-white leading-[1.08]" style={{"fontFamily": "var(--font-display)"}}>
                                     Welcome back, Traveler
                                 </div>
-                                <div className="mt-2 text-sm md:text-base" style={{"color": "rgba(255,255,255,0.72)"}}>
+                                <div className="mt-1.5 text-sm md:text-sm" style={{"color": "rgba(255,255,255,0.72)"}}>
                                     3 upcoming trips · 5 wishlisted experiences
                                 </div>
                             </div>
@@ -195,7 +510,7 @@ def:pub page() -> JsxElement {
 
                         <button
                             type="button"
-                            className="h-11 px-5 rounded-full text-sm font-semibold border shadow-soft self-start md:self-auto"
+                            className="h-10 px-4 rounded-full text-[13px] font-semibold border shadow-soft self-start md:self-auto"
                             style={{"backgroundColor": "rgba(255,255,255,0.10)", "borderColor": "rgba(255,255,255,0.18)", "color": "rgba(255,255,255,0.92)"}}
                         >
                             Quick Action
@@ -205,13 +520,13 @@ def:pub page() -> JsxElement {
             </header>
 
             <section className="bg-white/60 border-b border-border">
-                <div className="max-w-6xl mx-auto px-4 py-6">
-                    <div className="flex items-center gap-3 overflow-x-auto">
+                <div className="max-w-6xl mx-auto px-4 py-4.5">
+                    <div className="flex items-center gap-2 overflow-x-auto">
                         {[
                             <button
                                 key={t["key"]}
                                 type="button"
-                                onClick={lambda e: set_tab(t["key"])}
+                                onClick={tab_onclick(t["key"])}
                                 className={tab_class(t["key"] == activeTab)}
                             >
                                 {t["label"]}
@@ -222,18 +537,44 @@ def:pub page() -> JsxElement {
                 </div>
             </section>
 
-            <section className="max-w-6xl mx-auto px-4 py-12 md:py-14">
+            <section className="max-w-6xl mx-auto px-4 py-10 md:py-12">
                 <div className="flex items-end justify-between gap-4">
-                    <div className="text-3xl md:text-4xl" style={{"fontFamily": "var(--font-display)", "color": "rgba(7,20,39,0.92)"}}>
-                        Upcoming Trips
+                    <div className="text-2xl md:text-3xl" style={{"fontFamily": "var(--font-display)", "color": "rgba(7,20,39,0.92)"}}>
+                        {(
+                            "Upcoming Trips" if activeTab == "Upcoming"
+                            else "Completed Trips" if activeTab == "Completed"
+                            else "Saved Experiences" if activeTab == "Wishlist"
+                            else "Messages" if activeTab == "Messages"
+                            else "My Reviews" if activeTab == "My Reviews"
+                            else "Account Settings"
+                        )}
                     </div>
                 </div>
 
-                <div className="mt-7 flex flex-col gap-6">
-                    {[
-                        trip_card(t)
-                        for t in trips
-                    ]}
+                <div className="mt-6">
+                    {(activeTab == "Upcoming") and (
+                        <div className="flex flex-col gap-5">
+                            {[trip_card(t) for t in trips]}
+                        </div>
+                    ) or (activeTab == "Completed") and (
+                        <div className="flex flex-col gap-5">
+                            {[completed_card(t) for t in completed_trips]}
+                        </div>
+                    ) or (activeTab == "Wishlist") and (
+                        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+                            {[wishlist_card(w) for w in wishlist]}
+                        </div>
+                    ) or (activeTab == "Messages") and (
+                        <div className="flex flex-col gap-4">
+                            {[message_card(m) for m in messages]}
+                        </div>
+                    ) or (activeTab == "My Reviews") and (
+                        <div className="flex flex-col gap-4">
+                            {[review_card(r) for r in reviews]}
+                        </div>
+                    ) or (
+                        {settings_panel()}
+                    )}
                 </div>
             </section>
 
