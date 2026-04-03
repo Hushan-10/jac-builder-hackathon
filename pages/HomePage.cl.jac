@@ -190,7 +190,7 @@ def:pub page() -> JsxElement {
                             <Link to="/destinations" className="hover:text-white transition-colors">Destinations</Link>
                             <Link to="/experiences" className="hover:text-white transition-colors">Experiences</Link>
                             <Link to="/stays" className="hover:text-white transition-colors">Stays</Link>
-                            <Link to="/itinerary" className="hover:text-white transition-colors">AI Planner</Link>
+                            <Link to="/dashboard" className="hover:text-white transition-colors">Dashboard</Link>
                         </div>
 
                         <div className="flex items-center gap-4">
@@ -882,7 +882,7 @@ def:pub page() -> JsxElement {
                         </p>
                         <div className="mt-8">
                             <Link
-                                to="/itinerary"
+                                to="/dashboard"
                                 className="h-12 px-7 inline-flex items-center justify-center rounded-2xl text-sm font-semibold shadow-soft"
                                 style={{"backgroundColor": "var(--color-gold)", "color": "rgba(7,20,39,0.95)"}}
                             >
@@ -952,7 +952,7 @@ def:pub page() -> JsxElement {
                                 <Link to="/destinations" className="text-sm hover:text-white transition-colors" style={{"color": "rgba(255,255,255,0.78)"}}>Destinations</Link>
                                 <Link to="/experiences" className="text-sm hover:text-white transition-colors" style={{"color": "rgba(255,255,255,0.78)"}}>Experiences</Link>
                                 <Link to="/stays" className="text-sm hover:text-white transition-colors" style={{"color": "rgba(255,255,255,0.78)"}}>Stays</Link>
-                                <Link to="/itinerary" className="text-sm hover:text-white transition-colors" style={{"color": "rgba(255,255,255,0.78)"}}>AI Planner</Link>
+                                <Link to="/dashboard" className="text-sm hover:text-white transition-colors" style={{"color": "rgba(255,255,255,0.78)"}}>Dashboard</Link>
                                 <Link to="/guides" className="text-sm hover:text-white transition-colors" style={{"color": "rgba(255,255,255,0.78)"}}>Travel Guides</Link>
                             </div>
                         </div>

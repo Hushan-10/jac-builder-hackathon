@@ -71,7 +71,7 @@ def:pub page() -> JsxElement {
                             <Link to="/destinations" className="text-foreground hover:text-foreground transition-colors">Destinations</Link>
                             <Link to="/experiences" className="hover:text-foreground transition-colors">Experiences</Link>
                             <Link to="/stays" className="hover:text-foreground transition-colors">Stays</Link>
-                            <Link to="/itinerary" className="hover:text-foreground transition-colors">AI Planner</Link>
+                            <Link to="/dashboard" className="hover:text-foreground transition-colors">Dashboard</Link>
                         </div>
 
                         <div className="flex items-center gap-4">
@@ -182,7 +182,7 @@ def:pub page() -> JsxElement {
                                 <Link to="/destinations" className="text-sm hover:text-white transition-colors" style={{"color": "rgba(255,255,255,0.78)"}}>Destinations</Link>
                                 <Link to="/experiences" className="text-sm hover:text-white transition-colors" style={{"color": "rgba(255,255,255,0.78)"}}>Experiences</Link>
                                 <Link to="/stays" className="text-sm hover:text-white transition-colors" style={{"color": "rgba(255,255,255,0.78)"}}>Stays</Link>
-                                <Link to="/itinerary" className="text-sm hover:text-white transition-colors" style={{"color": "rgba(255,255,255,0.78)"}}>AI Planner</Link>
+                                <Link to="/dashboard" className="text-sm hover:text-white transition-colors" style={{"color": "rgba(255,255,255,0.78)"}}>Dashboard</Link>
                                 <Link to="/guides" className="text-sm hover:text-white transition-colors" style={{"color": "rgba(255,255,255,0.78)"}}>Travel Guides</Link>
                             </div>
                         </div>
