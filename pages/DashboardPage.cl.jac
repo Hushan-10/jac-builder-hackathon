@@ -140,9 +140,13 @@ def:pub page() -> JsxElement {
 
     has settings_name: str = "Hushan";
     has settings_email: str = "alex@example.com";
-    has settings_phone: str = "+41 79 123 45 67";
+    has settings_phone: str = "+41 79 123 45 10";
     has settings_style: str = "Luxury / Adventure";
     has settings_newsletter: bool = True;
+
+    has settings_error: str = "";
+    has settings_success: str = "";
+    has settings_saving: bool = False;
 
     def set_tab(k: str) -> None {
         activeTab = k;
@@ -375,12 +379,58 @@ def:pub page() -> JsxElement {
         );
     }
 
-    def handle_settings_name(e: any) -> None { settings_name = e["target"]["value"]; }
-    def handle_settings_email(e: any) -> None { settings_email = e["target"]["value"]; }
-    def handle_settings_phone(e: any) -> None { settings_phone = e["target"]["value"]; }
-    def handle_settings_style(e: any) -> None { settings_style = e["target"]["value"]; }
-    def toggle_newsletter() -> None { settings_newsletter = not settings_newsletter; }
-    def save_settings() -> None { }
+    def handle_settings_name(e: any) -> None { settings_name = e["target"]["value"]; settings_success = ""; }
+    def handle_settings_email(e: any) -> None { settings_email = e["target"]["value"]; settings_success = ""; }
+    def handle_settings_phone(e: any) -> None { settings_phone = e["target"]["value"]; settings_success = ""; }
+    def handle_settings_style(e: any) -> None { settings_style = e["target"]["value"]; settings_success = ""; }
+    def toggle_newsletter() -> None { settings_newsletter = not settings_newsletter; settings_success = ""; }
+
+    def is_valid_email(x: str) -> bool {
+        v = str(x or "").strip();
+        return v.includes("@") and v.includes(".") and (len(v) >= 5);
+    }
+
+    async def save_settings() -> None {
+        settings_success = "";
+        settings_error = "";
+
+        name_v = str(settings_name or "").strip();
+        email_v = str(settings_email or "").strip();
+        phone_v = str(settings_phone or "").strip();
+        style_v = str(settings_style or "").strip();
+
+        if not name_v {
+            settings_error = "Full Name is required.";
+            return;
+        }
+        if not email_v {
+            settings_error = "Email is required.";
+            return;
+        }
+        if not is_valid_email(email_v) {
+            settings_error = "Please enter a valid email address.";
+            return;
+        }
+        if not phone_v {
+            settings_error = "Phone is required.";
+            return;
+        }
+        if not style_v {
+            settings_error = "Preferred Travel Style is required.";
+            return;
+        }
+
+        settings_saving = True;
+        # Save immediately (client-safe)
+        settings_saving = False;
+
+        settings_name = name_v;
+        settings_email = email_v;
+        settings_phone = phone_v;
+        settings_style = style_v;
+
+        settings_success = "Settings saved successfully";
+    }
 
     def settings_panel() -> JsxElement {
         return (
@@ -439,14 +489,27 @@ def:pub page() -> JsxElement {
                     </button>
                 </div>
 
+                {settings_error and (
+                    <div className="mt-5 rounded-2xl border px-4 py-3 text-sm" style={{"backgroundColor": "rgba(220,38,38,0.06)", "borderColor": "rgba(220,38,38,0.18)", "color": "rgba(153,27,27,0.92)"}}>
+                        {settings_error}
+                    </div>
+                )}
+
+                {settings_success and (
+                    <div className="mt-5 rounded-2xl border px-4 py-3 text-sm" style={{"backgroundColor": "rgba(34,197,94,0.08)", "borderColor": "rgba(34,197,94,0.22)", "color": "rgba(21,128,61,0.92)"}}>
+                        {settings_success}
+                    </div>
+                )}
+
                 <div className="mt-6">
                     <button
                         type="button"
                         onClick={save_settings}
+                        disabled={settings_saving}
                         className="h-11 px-6 rounded-full text-sm font-semibold shadow-soft border"
-                        style={{"backgroundColor": "var(--color-gold)", "borderColor": "var(--color-gold)", "color": "rgba(7,20,39,0.95)"}}
+                        style={{"backgroundColor": "var(--color-gold)", "borderColor": "var(--color-gold)", "color": "rgba(7,20,39,0.95)", "opacity": (0.75 if settings_saving else 1), "cursor": ("not-allowed" if settings_saving else "pointer")}}
                     >
-                        Save Changes
+                        {"Saving..." if settings_saving else "Save Changes"}
                     </button>
                 </div>
             </div>

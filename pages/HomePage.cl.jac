@@ -194,9 +194,9 @@ def:pub page() -> JsxElement {
                         </div>
 
                         <div className="flex items-center gap-4">
-                            <Link to="/login" className="text-sm hover:text-white transition-colors">Sign In</Link>
+                            <Link to="/auth?mode=signin" className="text-sm hover:text-white transition-colors">Sign In</Link>
                             <Link
-                                to="/signup"
+                                to="/auth?mode=signup"
                                 className="h-10 px-5 inline-flex items-center justify-center rounded-full text-sm font-semibold shadow-soft"
                                 style={{"backgroundColor": "var(--color-gold)", "color": "rgba(7,20,39,0.95)"}}
                             >
