@@ -73,4 +73,4 @@ result = await my_function("world");
 - **`styles/global.css`** — design tokens (`--primary`, `--background`, etc.) and utility classes
 - **`main.jac`** — registers server symbols and mounts the client app
 - 
-### mostly get the image support of jac builder
+### mostly get the image support of jac builder 
