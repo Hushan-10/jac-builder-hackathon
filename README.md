@@ -1,5 +1,6 @@
 # Fullstack Starter
 
+
 A full-stack Jac starter template with user authentication and a working backend function demo.
 
 ## Project Structure
